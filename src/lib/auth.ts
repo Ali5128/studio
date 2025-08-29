@@ -2,10 +2,8 @@
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { FAKE_COOKIE_NAME, FAKE_ADMIN_USER, FAKE_ADMIN_PASSWORD } from './constants';
 
-export const FAKE_COOKIE_NAME = 'freemovies_auth';
-export const FAKE_ADMIN_USER = 'admin';
-export const FAKE_ADMIN_PASSWORD = 'password';
 
 export async function getSession() {
   return cookies().get(FAKE_COOKIE_NAME);

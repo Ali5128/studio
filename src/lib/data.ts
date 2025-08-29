@@ -1,5 +1,5 @@
 import type { Movie } from './types';
-import {-v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 // In-memory store for movies
 let movies: Movie[] = [
@@ -70,7 +70,7 @@ export async function getMovieById(id: string): Promise<Movie | undefined> {
 export async function addMovie(movieData: Omit<Movie, 'id'>): Promise<Movie> {
   await new Promise(resolve => setTimeout(resolve, 100));
   const newMovie: Movie = {
-    id: new Date().getTime().toString(), // simple unique id
+    id: uuidv4(),
     ...movieData
   };
   movies.unshift(newMovie); // Add to the beginning of the array

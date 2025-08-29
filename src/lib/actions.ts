@@ -3,7 +3,8 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { createSession, deleteSession, FAKE_ADMIN_USER, FAKE_ADMIN_PASSWORD } from './auth';
+import { createSession, deleteSession } from './auth';
+import { FAKE_ADMIN_USER, FAKE_ADMIN_PASSWORD } from './constants';
 import { addMovie as dbAddMovie, updateMovie as dbUpdateMovie, deleteMovie as dbDeleteMovie } from './data';
 import { generateSeoMetadata } from '@/ai/flows/generate-seo-metadata';
 import type { Movie } from './types';

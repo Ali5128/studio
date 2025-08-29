@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { FAKE_COOKIE_NAME } from '@/lib/auth';
+import { FAKE_COOKIE_NAME } from '@/lib/constants';
 
 export function middleware(request: NextRequest) {
   const isAuthenticated = request.cookies.has(FAKE_COOKIE_NAME);
