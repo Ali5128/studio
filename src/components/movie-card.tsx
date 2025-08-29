@@ -32,7 +32,7 @@ export function MovieCard({ movie }: { movie: Movie }) {
     );
 
   return (
-    <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 ease-in-out hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-2">
+    <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 ease-in-out hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1">
       <CardContentWrapper>
         <div className="h-full flex flex-col">
           <CardHeader className="p-0 relative">
@@ -42,28 +42,28 @@ export function MovieCard({ movie }: { movie: Movie }) {
                 alt={`Thumbnail for ${movie.title}`}
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1200px) 25vw, 20vw"
                 onError={() => setImgSrc(PLACEHOLDER_IMAGE)}
                 data-ai-hint="movie poster"
               />
               {!isLinkValid && (
-                <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/60 flex items-center justify-center p-2 text-center">
                    <Badge variant="destructive">Temporarily Unavailable</Badge>
                 </div>
               )}
             </div>
           </CardHeader>
-          <CardContent className="p-4 flex-1 flex flex-col">
-            <CardTitle className="font-headline text-lg mb-2 group-hover:text-primary transition-colors">
+          <CardContent className="p-3 md:p-4 flex-1 flex flex-col">
+            <CardTitle className="font-headline text-base md:text-lg mb-1 md:mb-2 group-hover:text-primary transition-colors">
               {movie.title}
             </CardTitle>
-            <p className="text-sm text-muted-foreground line-clamp-3 flex-1">
+            <p className="text-xs md:text-sm text-muted-foreground line-clamp-2 md:line-clamp-3 flex-1">
               {movie.description}
             </p>
           </CardContent>
-          <CardFooter className="p-4 pt-2">
+          <CardFooter className="p-3 md:p-4 pt-0 md:pt-2">
             <div className="flex items-center text-xs text-muted-foreground">
-              <Calendar className="w-4 h-4 mr-1.5" />
+              <Calendar className="w-3 h-3 md:w-4 md:h-4 mr-1.5" />
               <span>{movie.year}</span>
             </div>
           </CardFooter>

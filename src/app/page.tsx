@@ -23,15 +23,15 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-1 py-12 px-6">
+      <main className="flex-1 py-12 px-4 sm:px-6">
         <div className="container mx-auto space-y-16">
           {allMovies.length > 0 ? (
             categories.map(category => (
               <section key={category.title}>
-                <h2 className="text-4xl font-headline font-bold mb-8 text-center">
+                <h2 className="text-3xl md:text-4xl font-headline font-bold mb-8 text-center">
                   {category.title}
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
                   {category.movies.map(movie => (
                     <MovieCard key={`${category.title}-${movie.id}`} movie={movie} />
                   ))}

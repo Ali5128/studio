@@ -67,20 +67,20 @@ export function MoviesTable({ movies }: { movies: Movie[] }) {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-headline font-bold">Movies</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <h1 className="text-2xl sm:text-3xl font-headline font-bold">Movies</h1>
         <Button onClick={handleAdd}>
           <PlusCircle className="mr-2 h-4 w-4" />
           Add Movie
         </Button>
       </div>
-      <div className="border rounded-lg">
+      <div className="border rounded-lg overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[80px]">Image</TableHead>
+              <TableHead className="w-[60px] sm:w-[80px]">Image</TableHead>
               <TableHead>Title</TableHead>
-              <TableHead>Year</TableHead>
+              <TableHead className="hidden md:table-cell">Year</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -98,7 +98,7 @@ export function MoviesTable({ movies }: { movies: Movie[] }) {
                   />
                 </TableCell>
                 <TableCell className="font-medium">{movie.title}</TableCell>
-                <TableCell>{movie.year}</TableCell>
+                <TableCell className="hidden md:table-cell">{movie.year}</TableCell>
                 <TableCell className="text-right">
                   <AlertDialog>
                     <DropdownMenu>

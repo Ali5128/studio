@@ -81,7 +81,7 @@ export function MovieForm({ isOpen, setIsOpen, movie }: MovieFormProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[625px]">
+      <DialogContent className="w-[90vw] max-w-[625px] rounded-lg">
         <form action={formAction}>
           {isEditing && <input type="hidden" {...register('id')} value={movie.id} />}
           <DialogHeader>
@@ -101,7 +101,7 @@ export function MovieForm({ isOpen, setIsOpen, movie }: MovieFormProps) {
               <Textarea id="description" {...register('description')} />
               {errors.description && <p className="text-sm text-destructive">{errors.description.message}</p>}
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="year">Year</Label>
                 <Input id="year" type="number" {...register('year')} />
