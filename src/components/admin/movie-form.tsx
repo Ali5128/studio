@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useFormStatus } from 'react-dom';
 import { saveMovieAction } from '@/lib/actions';
 import type { Movie } from '@/lib/types';
 import { Button } from '@/components/ui/button';
@@ -49,7 +49,7 @@ function SubmitButton({ isEditing }: { isEditing: boolean }) {
 
 export function MovieForm({ isOpen, setIsOpen, movie }: MovieFormProps) {
   const isEditing = !!movie;
-  const [formState, formAction] = useFormState(saveMovieAction, null);
+  const [formState, formAction] = useActionState(saveMovieAction, null);
   const { toast } = useToast();
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<MovieFormData>({
