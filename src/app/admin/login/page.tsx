@@ -41,9 +41,8 @@ export default function LoginPage() {
                 <Input
                   id="username"
                   name="username"
-                  placeholder="admin"
+                  placeholder="Jello"
                   required
-                  defaultValue="admin"
                 />
               </div>
               <div className="space-y-2">
@@ -54,7 +53,6 @@ export default function LoginPage() {
                   type="password"
                   placeholder="password"
                   required
-                  defaultValue="password"
                 />
               </div>
               {state?.type === 'error' && (

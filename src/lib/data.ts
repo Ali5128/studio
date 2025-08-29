@@ -6,8 +6,7 @@ const MOVIES_COLLECTION = 'movies';
 
 export async function getMovies(): Promise<Movie[]> {
   const moviesCollection = collection(db, MOVIES_COLLECTION);
-  const q = query(moviesCollection, orderBy('year', 'desc'));
-  const moviesSnapshot = await getDocs(q);
+  const moviesSnapshot = await getDocs(moviesCollection);
   return moviesSnapshot.docs.map(doc => ({
     id: doc.id,
     ...doc.data()
