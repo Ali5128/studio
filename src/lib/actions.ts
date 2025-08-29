@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createSession, deleteSession } from './auth';
 import { FAKE_ADMIN_USER, FAKE_ADMIN_PASSWORD } from './constants';
-import { addMovie as dbAddMovie, updateMovie as dbUpdateMovie, deleteMovie as dbDeleteMovie } from './data';
+import { addMovie, updateMovie, deleteMovie } from './data';
 import { generateSeoMetadata } from '@/ai/flows/generate-seo-metadata';
 import type { MovieData } from './types';
 
@@ -84,9 +84,9 @@ export async function saveMovieAction(prevState: MovieFormState, formData: FormD
     const moviePayload: MovieData = { ...movieData, ...seoMetadata };
 
     if (id) {
-      await dbUpdateMovie(id, moviePayload);
+      await updateMovie(id, moviePayload);
     } else {
-      await dbAddMovie(moviePayload);
+      await addMovie(moviePayload);
     }
 
     revalidatePath('/');
@@ -107,7 +107,7 @@ export async function deleteMovieAction(id: string) {
         return { type: 'error', message: 'Movie ID is required.' };
     }
     try {
-        await dbDeleteMovie(id);
+        await deleteMovie(id);
         revalidatePath('/');
         revalidatePath('/admin/dashboard');
         revalidatePath('/sitemap.xml');

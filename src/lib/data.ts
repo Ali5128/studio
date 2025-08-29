@@ -1,43 +1,71 @@
-import { collection, getDocs, doc, getDoc, addDoc, updateDoc, deleteDoc, query, orderBy, limit } from 'firebase/firestore';
-import { db } from './firebase';
 import type { Movie, MovieData } from './types';
+import { v4 as uuidv4 } from 'uuid';
 
-const MOVIES_COLLECTION = 'movies';
+// In-memory store for movies
+let movies: Movie[] = [
+  {
+    id: '1',
+    title: 'The Shawshank Redemption',
+    description: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.',
+    year: 1994,
+    externalLink: 'https://example.com/shawshank-redemption',
+    thumbnailUrl: 'https://picsum.photos/500/750?random=1',
+    metaTitle: 'The Shawshank Redemption (1994)',
+    metaDescription: 'An epic tale of hope and friendship inside a brutal prison.',
+  },
+  {
+    id: '2',
+    title: 'The Godfather',
+    description: 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.',
+    year: 1972,
+    externalLink: 'https://example.com/the-godfather',
+    thumbnailUrl: 'https://picsum.photos/500/750?random=2',
+    metaTitle: 'The Godfather (1972) - A Cinematic Masterpiece',
+    metaDescription: 'Witness the Corleone family\'s rise to power in this iconic mafia film.',
+  },
+  {
+    id: '3',
+    title: 'The Dark Knight',
+    description: 'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.',
+    year: 2008,
+    externalLink: 'https://example.com/the-dark-knight',
+    thumbnailUrl: 'https://picsum.photos/500/750?random=3',
+    metaTitle: 'The Dark Knight (2008) - Why So Serious?',
+    metaDescription: 'Heath Ledger\'s legendary performance as the Joker redefined superhero movies.',
+  },
+];
 
 export async function getMovies(): Promise<Movie[]> {
-  const moviesCollection = collection(db, MOVIES_COLLECTION);
-  const moviesSnapshot = await getDocs(moviesCollection);
-  return moviesSnapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data()
-  } as Movie));
+  // Simulate async operation
+  return Promise.resolve(movies);
 }
 
 export async function getMovieById(id: string): Promise<Movie | undefined> {
-  const docRef = doc(db, MOVIES_COLLECTION, id);
-  const docSnap = await getDoc(docRef);
-
-  if (docSnap.exists()) {
-    return { id: docSnap.id, ...docSnap.data() } as Movie;
-  } else {
-    return undefined;
-  }
+  // Simulate async operation
+  return Promise.resolve(movies.find(movie => movie.id === id));
 }
 
 export async function addMovie(movieData: MovieData): Promise<Movie> {
-  const docRef = await addDoc(collection(db, MOVIES_COLLECTION), movieData);
-  return { id: docRef.id, ...movieData };
+  const newMovie: Movie = {
+    id: uuidv4(),
+    ...movieData,
+  };
+  movies.push(newMovie);
+  // Simulate async operation
+  return Promise.resolve(newMovie);
 }
 
-export async function updateMovie(id: string, movieData: Partial<MovieData>): Promise<Movie | null> {
-  const docRef = doc(db, MOVIES_COLLECTION, id);
-  await updateDoc(docRef, movieData);
-  const updatedDoc = await getDoc(docRef);
-  return updatedDoc.exists() ? { id: updatedDoc.id, ...updatedDoc.data() } as Movie : null;
+export async function updateMovie(id: string, movieData: Partial<MovieData>): Promise<void> {
+  const movieIndex = movies.findIndex(movie => movie.id === id);
+  if (movieIndex !== -1) {
+    movies[movieIndex] = { ...movies[movieIndex], ...movieData };
+  }
+  // Simulate async operation
+  return Promise.resolve();
 }
 
-export async function deleteMovie(id: string): Promise<boolean> {
-  const docRef = doc(db, MOVIES_COLLECTION, id);
-  await deleteDoc(docRef);
-  return true; // Assume success, or add error handling
+export async function deleteMovie(id: string): Promise<void> {
+  movies = movies.filter(movie => movie.id !== id);
+  // Simulate async operation
+  return Promise.resolve();
 }
