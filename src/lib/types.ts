@@ -8,3 +8,5 @@ export type Movie = {
   metaTitle: string;
   metaDescription: string;
 };
+
+export type MovieData = Omit<Movie, 'id'>;

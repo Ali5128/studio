@@ -7,7 +7,7 @@ import { createSession, deleteSession } from './auth';
 import { FAKE_ADMIN_USER, FAKE_ADMIN_PASSWORD } from './constants';
 import { addMovie as dbAddMovie, updateMovie as dbUpdateMovie, deleteMovie as dbDeleteMovie } from './data';
 import { generateSeoMetadata } from '@/ai/flows/generate-seo-metadata';
-import type { Movie } from './types';
+import type { MovieData } from './types';
 
 // --- Auth Actions ---
 
@@ -81,12 +81,12 @@ export async function saveMovieAction(prevState: MovieFormState, formData: FormD
       description: movieData.description,
     });
     
-    const moviePayload = { ...movieData, ...seoMetadata };
+    const moviePayload: MovieData = { ...movieData, ...seoMetadata };
 
     if (id) {
       await dbUpdateMovie(id, moviePayload);
     } else {
-      await dbAddMovie(moviePayload as Omit<Movie, 'id'>);
+      await dbAddMovie(moviePayload);
     }
 
     revalidatePath('/');
