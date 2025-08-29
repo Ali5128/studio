@@ -1,7 +1,11 @@
+import { db } from './firebase';
+import { collection, getDocs, doc, getDoc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import type { Movie, MovieData } from './types';
 import { v4 as uuidv4 } from 'uuid';
 
-// In-memory store for movies
+const MOVIES_COLLECTION = 'movies';
+
+// In-memory store for movies - This will be replaced by Firestore
 let movies: Movie[] = [
   {
     id: '1',
@@ -35,37 +39,34 @@ let movies: Movie[] = [
   },
 ];
 
+
 export async function getMovies(): Promise<Movie[]> {
-  // Simulate async operation
-  return Promise.resolve(movies);
+  const moviesCollection = collection(db, MOVIES_COLLECTION);
+  const movieSnapshot = await getDocs(moviesCollection);
+  const movies: Movie[] = movieSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Movie));
+  return movies;
 }
 
 export async function getMovieById(id: string): Promise<Movie | undefined> {
-  // Simulate async operation
-  return Promise.resolve(movies.find(movie => movie.id === id));
+  const movieDoc = doc(db, MOVIES_COLLECTION, id);
+  const movieSnapshot = await getDoc(movieDoc);
+  if (movieSnapshot.exists()) {
+    return { id: movieSnapshot.id, ...movieSnapshot.data() } as Movie;
+  }
+  return undefined;
 }
 
 export async function addMovie(movieData: MovieData): Promise<Movie> {
-  const newMovie: Movie = {
-    id: uuidv4(),
-    ...movieData,
-  };
-  movies.push(newMovie);
-  // Simulate async operation
-  return Promise.resolve(newMovie);
+  const docRef = await addDoc(collection(db, MOVIES_COLLECTION), movieData);
+  return { id: docRef.id, ...movieData };
 }
 
 export async function updateMovie(id: string, movieData: Partial<MovieData>): Promise<void> {
-  const movieIndex = movies.findIndex(movie => movie.id === id);
-  if (movieIndex !== -1) {
-    movies[movieIndex] = { ...movies[movieIndex], ...movieData };
-  }
-  // Simulate async operation
-  return Promise.resolve();
+  const movieDoc = doc(db, MOVIES_COLLECTION, id);
+  await updateDoc(movieDoc, movieData);
 }
 
 export async function deleteMovie(id: string): Promise<void> {
-  movies = movies.filter(movie => movie.id !== id);
-  // Simulate async operation
-  return Promise.resolve();
+  const movieDoc = doc(db, MOVIES_COLLECTION, id);
+  await deleteDoc(movieDoc);
 }
