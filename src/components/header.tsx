@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Film } from 'lucide-react';
 
-export async function Header() {
+export function Header() {
   return (
     <header className="py-4 px-6 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40">
       <div className="container mx-auto flex justify-between items-center">
