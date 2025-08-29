@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'FreeMovies',
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
     title: 'FreeMovies',
     description: 'Discover and watch your favorite movies online.',
     type: 'website',
-    url: 'https://freemovies-demo.vercel.app', // Replace with your actual domain
+    url: 'https://freemovi.netlify.app',
     images: [
       {
         url: 'https://picsum.photos/1200/630',
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'FreeMovies',
     description: 'Discover and watch your favorite movies online.',
-    images: ['https://picsum.photos/1200/630'], // Replace with your actual domain
+    images: ['https://picsum.photos/1200/630'],
   },
 };
 
@@ -44,6 +45,18 @@ export default function RootLayout({
         <link
           href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap"
           rel="stylesheet"
+        />
+        {/* Adstera Popunder Ad */}
+        <Script
+          id="adstera-popunder"
+          strategy="afterInteractive"
+          src="//pl27535343.revenuecpmgate.com/01/b0/59/01b059de8c5f3a650e15a984f2d6ec00.js"
+        />
+        {/* Adstera Social Bar Ad */}
+        <Script
+          id="adstera-social-bar"
+          strategy="afterInteractive"
+          src="//pl27535360.revenuecpmgate.com/19/ad/b5/19adb5e47367b44c469ef4b04f5c6962.js"
         />
       </head>
       <body className="font-body antialiased">
