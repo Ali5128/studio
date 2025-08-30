@@ -2,7 +2,7 @@ import { getMovies } from '@/lib/data';
 import type { Movie } from '@/lib/types';
 
 export async function GET() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const siteUrl = 'https://freemovi.netlify.app';
   const movies: Movie[] = await getMovies();
   
   const movieUrls = movies
